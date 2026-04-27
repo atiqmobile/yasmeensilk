@@ -165,6 +165,7 @@ img{max-width:100%;display:block}
 [dir="rtl"]{font-family:var(--arabic)}
 [dir="rtl"] .product-info{text-align:right}
 [dir="rtl"] .nav-links{flex-direction:row-reverse}
+[dir="rtl"] .whatsapp-float{right:auto;left:28px}
 </style>
 </head>
 <body>
@@ -184,7 +185,7 @@ img{max-width:100%;display:block}
     <a href="index.html#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a>
     <button class="nav-lang" onclick="toggleLang()">العربية</button>
   </div>
-  <button class="nav-hamburger" onclick="openMobile()">
+  <button class="nav-hamburger" onclick="toggleMobile()">
     <span></span><span></span><span></span>
   </button>
 </div>
@@ -208,7 +209,7 @@ img{max-width:100%;display:block}
 <section class="page-hero">
 <div class="container">
   <p class="page-hero-label" data-en="Our Collection" data-ar="مجموعتنا">Our Collection</p>
-  <h1><span data-en="Yemeni" data-ar="أوشحة">Yemeni</span> <span class="gold-text" data-en="Scarves" data-ar="يمنية">Scarves</span></h1>
+  <h1><span data-en="Yemeni" data-ar="شيلان">Yemeni</span> <span class="gold-text" data-en="Scarves" data-ar="رجاليه">Scarves</span></h1>
   <p class="page-hero-desc" data-en="Intricately embroidered by skilled artisans, our scarves feature floral, geometric, and traditional motifs in vibrant thread work. Includes Yemeni-style embroidered pieces prized across the Horn of Africa and Arabian Peninsula. Each piece is a work of textile art — available in bulk for wholesalers." data-ar="مطرزة بدقة على أيدي حرفيين مهرة، تتميز أوشحتنا بزخارف زهرية وهندسية وتقليدية بخيوط نابضة بالحياة. تشمل قطعًا مطرزة بالأسلوب اليمني تحظى بتقدير كبير في القرن الأفريقي وشبه الجزيرة العربية. كل قطعة هي عمل فني نسيجي — متاحة بالجملة لتجار الجملة.">Intricately embroidered by skilled artisans, our scarves feature floral, geometric, and traditional motifs in vibrant thread work. Includes Yemeni-style embroidered pieces prized across the Horn of Africa and Arabian Peninsula. Each piece is a work of textile art — available in bulk for wholesalers.</p>
   <div class="breadcrumb">
     <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>/</span><span data-en="Yemeni Scarves" data-ar="شيلان">Yemeni Scarves</span>
@@ -291,6 +292,7 @@ let currentImg = 0;
 
 function openMobile() { document.getElementById('mobileMenu').classList.add('open'); }
 function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+function toggleMobile() { document.getElementById('mobileMenu').classList.toggle('open'); }
 
 function openLightbox(idx) {
   currentImg = idx;

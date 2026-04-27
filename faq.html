@@ -229,6 +229,7 @@ background:radial-gradient(ellipse at center,rgba(201,169,110,0.15) 0%,transpare
 [dir="rtl"] .faq-answer-inner{text-align:right}
 [dir="rtl"] .nav-links{flex-direction:row-reverse}
 [dir="rtl"] .breadcrumb{direction:rtl}
+[dir="rtl"] .whatsapp-float{right:auto;left:28px}
 </style>
 </head>
 <body>
@@ -248,7 +249,7 @@ background:radial-gradient(ellipse at center,rgba(201,169,110,0.15) 0%,transpare
     <a href="index.html#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a>
     <button class="nav-lang" onclick="toggleLang()">العربية</button>
   </div>
-  <button class="nav-hamburger" onclick="openMobile()">
+  <button class="nav-hamburger" onclick="toggleMobile()">
     <span></span><span></span><span></span>
   </button>
 </div>
@@ -398,6 +399,7 @@ background:radial-gradient(ellipse at center,rgba(201,169,110,0.15) 0%,transpare
 <script>
 function openMobile(){document.getElementById('mobileMenu').classList.add('open')}
 function closeMobile(){document.getElementById('mobileMenu').classList.remove('open')}
+function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
 
 // Nav scroll effect
 window.addEventListener('scroll',()=>{

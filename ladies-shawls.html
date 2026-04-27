@@ -171,6 +171,7 @@ img{max-width:100%;display:block}
 [dir="rtl"]{font-family:var(--arabic)}
 [dir="rtl"] .product-info{text-align:right}
 [dir="rtl"] .nav-links{flex-direction:row-reverse}
+[dir="rtl"] .whatsapp-float{right:auto;left:28px}
 </style>
 </head>
 <body>
@@ -190,7 +191,7 @@ img{max-width:100%;display:block}
     <a href="index.html#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a>
     <button class="nav-lang" onclick="toggleLang()">العربية</button>
   </div>
-  <button class="nav-hamburger" onclick="openMobile()">
+  <button class="nav-hamburger" onclick="toggleMobile()">
     <span></span><span></span><span></span>
   </button>
 </div>
@@ -312,6 +313,7 @@ let currentImg = 0;
 
 function openMobile() { document.getElementById('mobileMenu').classList.add('open'); }
 function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+function toggleMobile() { document.getElementById('mobileMenu').classList.toggle('open'); }
 
 function openLightbox(idx) {
   currentImg = idx;
