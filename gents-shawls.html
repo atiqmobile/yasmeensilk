@@ -79,6 +79,7 @@ img{max-width:100%;display:block}
 .nav-lang:hover{background:rgba(201,169,110,0.15);border-color:var(--gold)}
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:5px}
 .nav-hamburger span{width:24px;height:1.5px;background:var(--cream);transition:var(--transition)}
+.nav-lang-mobile{display:none;cursor:pointer;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,110,0.4);padding:5px 12px;background:transparent;font-family:var(--sans);white-space:nowrap;transition:var(--transition)}
 .mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(7,20,16,0.98);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:32px}
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--cream);transition:var(--transition)}
@@ -172,6 +173,7 @@ img{max-width:100%;display:block}
 @media(max-width:768px){
 .nav-links{display:none}
 .nav-hamburger{display:flex}
+.nav-lang-mobile{display:block}
 .products-grid{grid-template-columns:1fr;gap:40px}
 .arch-frame img{height:340px}
 .cta-banner .btn{display:block;margin:8px auto;max-width:280px}
@@ -202,6 +204,7 @@ img{max-width:100%;display:block}
     <a href="index.html#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a>
     <button class="nav-lang" onclick="toggleLang()">العربية</button>
   </div>
+  <button class="nav-lang nav-lang-mobile" onclick="toggleLang()">العربية</button>
   <button class="nav-hamburger" onclick="toggleMobile()">
     <span></span><span></span><span></span>
   </button>
