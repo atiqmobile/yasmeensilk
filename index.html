@@ -56,6 +56,7 @@
 --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
 --arabic:'Amiri','Noto Sans Arabic',serif;
 --transition:0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+--luxury-ease:cubic-bezier(0.16,1,0.3,1);
 }
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{font-family:var(--sans);background:var(--emerald-deep);color:var(--cream);line-height:1.7;overflow-x:hidden}
@@ -87,6 +88,12 @@ background-size:120px 120px}
 @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
 .gold-shimmer{background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-light),var(--gold),var(--gold-dark));background-size:200% 100%;animation:shimmer 5s ease-in-out infinite}
 
+@keyframes whatsappPulse{
+0%{box-shadow:0 4px 24px rgba(37,211,102,0.35),0 0 0 0 rgba(37,211,102,0.4)}
+70%{box-shadow:0 4px 24px rgba(37,211,102,0.35),0 0 0 15px rgba(37,211,102,0)}
+100%{box-shadow:0 4px 24px rgba(37,211,102,0.35),0 0 0 0 rgba(37,211,102,0)}
+}
+
 /* ARCH SHAPE (Islamic pointed arch / mihrab) */
 .arch-frame{position:relative;overflow:hidden;clip-path:polygon(0 12%,2% 8%,5% 5%,10% 2.5%,18% 0.8%,30% 0.1%,50% 0%,70% 0.1%,82% 0.8%,90% 2.5%,95% 5%,98% 8%,100% 12%,100% 100%,0 100%)}
 .arch-frame img{width:100%;height:100%;object-fit:cover}
@@ -98,8 +105,16 @@ background-size:120px 120px}
 .ornate-border::after{content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:40px;height:8px;background:var(--emerald-deep);display:flex;align-items:center;justify-content:center}
 
 /* GEOMETRIC SEPARATOR */
-.geo-sep{display:flex;align-items:center;justify-content:center;padding:60px 24px;gap:16px;max-width:600px;margin:0 auto}
-.geo-sep::before,.geo-sep::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.geo-sep{display:flex;align-items:center;justify-content:center;padding:60px 24px;gap:16px;max-width:600px;margin:0 auto;opacity:0;transition:opacity 0.8s var(--luxury-ease)}
+.geo-sep.visible{opacity:1}
+.geo-sep::before,.geo-sep::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform 1s var(--luxury-ease) 0.3s}
+.geo-sep.visible::before,.geo-sep.visible::after{transform:scaleX(1)}
+.geo-sep .geo-diamond{opacity:0;transform:rotate(-90deg) scale(0.5);transition:opacity 0.8s var(--luxury-ease),transform 1s var(--luxury-ease)}
+.geo-sep .geo-diamond:first-child{transition-delay:0.2s}
+.geo-sep .geo-diamond:last-child{transition-delay:0.35s}
+.geo-sep.visible .geo-diamond{opacity:1;transform:rotate(0deg) scale(1)}
+.geo-sep .geo-star{opacity:0;transform:rotate(-90deg) scale(0.5);transition:opacity 0.8s var(--luxury-ease),transform 1.2s var(--luxury-ease);transition-delay:0.15s}
+.geo-sep.visible .geo-star{opacity:1;transform:rotate(0deg) scale(1)}
 .geo-diamond{position:relative;width:20px;height:20px;flex-shrink:0}
 .geo-diamond::before{content:'';position:absolute;inset:2px;border:1px solid var(--gold);transform:rotate(45deg)}
 .geo-diamond::after{content:'';position:absolute;inset:6px;background:var(--gold);transform:rotate(45deg)}
@@ -144,9 +159,17 @@ background:
   linear-gradient(135deg,var(--gold) 1px,transparent 1px),
   linear-gradient(-135deg,var(--gold) 1px,transparent 1px);
 background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
-.hero-content{position:relative;z-index:2;text-align:center;max-width:800px;padding:0 24px}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:800px;padding:0 24px;will-change:transform}
 .hero-logo{height:170px;margin:80px auto 28px;display:block;filter:drop-shadow(0 4px 40px rgba(0,0,0,0.5));animation:logoReveal 1.5s ease forwards}
 @keyframes logoReveal{from{opacity:0;transform:translateY(-30px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+.hero-badge,.hero h1,.hero-sub,.hero-ctas{opacity:0;transform:translateY(20px)}
+.hero-badge{transition:opacity 1s var(--luxury-ease),transform 1s var(--luxury-ease);transition-delay:1.2s}
+.hero h1{transition:opacity 1.1s var(--luxury-ease),transform 1.1s var(--luxury-ease);transition-delay:1.6s}
+.hero-sub{transition:opacity 1s var(--luxury-ease),transform 1s var(--luxury-ease);transition-delay:2.0s}
+.hero-ctas{transition:opacity 1s var(--luxury-ease),transform 1s var(--luxury-ease);transition-delay:2.4s}
+.hero-loaded .hero-badge,.hero-loaded h1,.hero-loaded .hero-sub,.hero-loaded .hero-ctas{opacity:1;transform:translateY(0)}
+
 .hero-badge{display:inline-block;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,110,0.3);padding:10px 28px;margin-bottom:28px;position:relative}
 .hero-badge::before,.hero-badge::after{content:'';position:absolute;top:50%;width:20px;height:1px;background:var(--gold)}
 .hero-badge::before{left:-20px}
@@ -170,7 +193,9 @@ background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
 .section-label{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:500}
 .section-title{font-family:var(--serif);font-size:clamp(28px,4vw,48px);font-weight:400;line-height:1.25;margin-bottom:24px;color:var(--cream)}
 .section-desc{font-size:16px;color:var(--cream-dark);font-weight:300;line-height:1.9;max-width:600px}
-.divider{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-dark));margin:28px 0}
+.divider{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-dark));margin:28px 0;transform:scaleX(0);transform-origin:left;transition:transform 1.2s var(--luxury-ease)}
+.reveal.visible .divider{transform:scaleX(1);transition-delay:0.4s}
+[dir="rtl"] .divider{transform-origin:right}
 
 /* ABOUT */
 .about{background:var(--emerald-deep)}
@@ -197,12 +222,12 @@ background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
 .cat-btn{padding:10px 24px;font-size:11px;letter-spacing:2px;text-transform:uppercase;background:transparent;border:1px solid rgba(201,169,110,0.15);color:var(--cream-dark);cursor:pointer;transition:var(--transition);font-family:var(--sans)}
 .cat-btn.active,.cat-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-glow)}
 .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.product-card{position:relative;overflow:hidden;cursor:pointer;background:transparent;border:none;transition:var(--transition)}
-.product-card:hover{transform:translateY(-4px)}
-.product-card .arch-frame{aspect-ratio:3/4;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.2));transition:filter 0.5s ease}
-.product-card .arch-frame img{transition:transform 1s cubic-bezier(0.25,0.46,0.45,0.94)}
+.product-card{position:relative;overflow:hidden;cursor:pointer;background:transparent;border:none;transition:transform 0.6s var(--luxury-ease),box-shadow 0.6s var(--luxury-ease)}
+.product-card:hover{transform:translateY(-6px);box-shadow:0 0 0 1px rgba(201,169,110,0.2),0 12px 40px rgba(0,0,0,0.3)}
+.product-card .arch-frame{aspect-ratio:3/4;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.2));transition:filter 0.6s var(--luxury-ease)}
+.product-card .arch-frame img{transition:transform 1.4s var(--luxury-ease)}
 .product-card:hover .arch-frame{filter:drop-shadow(0 4px 20px rgba(201,169,110,0.25))}
-.product-card:hover .arch-frame img{transform:scale(1.06)}
+.product-card:hover .arch-frame img{transform:scale(1.05)}
 .product-card-info{padding:20px 16px;text-align:center}
 .product-card-info h3{font-family:var(--serif);font-size:16px;font-weight:400;color:var(--cream);margin-bottom:4px}
 .product-card-info p{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
@@ -265,14 +290,15 @@ background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
 .footer p{font-size:13px;color:var(--cream-dark)}
 
 /* WHATSAPP FLOAT */
-.whatsapp-float{position:fixed;bottom:28px;right:28px;z-index:900;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,0.35);transition:var(--transition);cursor:pointer}
-.whatsapp-float:hover{transform:scale(1.08);box-shadow:0 6px 32px rgba(37,211,102,0.45)}
+.whatsapp-float{position:fixed;bottom:28px;right:28px;z-index:900;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;animation:whatsappPulse 3s ease-in-out infinite;transition:transform 0.3s var(--luxury-ease);cursor:pointer}
+.whatsapp-float:hover{transform:scale(1.08);animation:none;box-shadow:0 6px 32px rgba(37,211,102,0.45)}
 .whatsapp-float svg{width:28px;height:28px;fill:white}
 
 /* LIGHTBOX */
-.lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(7,20,16,0.96);align-items:center;justify-content:center;padding:40px}
-.lightbox.open{display:flex}
-.lightbox img{max-width:90vw;max-height:85vh;object-fit:contain}
+.lightbox{display:flex;position:fixed;inset:0;z-index:2000;background:rgba(7,20,16,0.96);align-items:center;justify-content:center;padding:40px;visibility:hidden;opacity:0;pointer-events:none;backdrop-filter:blur(0px);transition:opacity 0.5s var(--luxury-ease),visibility 0.5s,backdrop-filter 0.5s var(--luxury-ease)}
+.lightbox.open{visibility:visible;opacity:1;pointer-events:auto;backdrop-filter:blur(8px)}
+.lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;opacity:0;transform:scale(0.95);transition:opacity 0.4s ease,transform 0.5s var(--luxury-ease)}
+.lightbox.open img{opacity:1;transform:scale(1)}
 .lightbox-close{position:absolute;top:24px;right:32px;background:none;border:none;color:var(--cream);font-size:32px;cursor:pointer;z-index:2001}
 .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--cream);font-size:36px;cursor:pointer;padding:16px;transition:var(--transition)}
 .lightbox-nav:hover{color:var(--gold)}
@@ -280,11 +306,16 @@ background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
 .lightbox-next{right:16px}
 
 /* SCROLL ANIMATIONS */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s var(--luxury-ease),transform 1s var(--luxury-ease)}
 .reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-delay-1{transition-delay:0.15s}
-.reveal-delay-2{transition-delay:0.3s}
-.reveal-delay-3{transition-delay:0.45s}
+.reveal-delay-1{transition-delay:0.2s}
+.reveal-delay-2{transition-delay:0.4s}
+.reveal-delay-3{transition-delay:0.6s}
+.product-card.reveal{transition-delay:calc(var(--stagger,0) * 0.12s)}
+
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}
+}
 
 /* TOAST */
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:var(--emerald-deep);padding:14px 32px;font-size:14px;font-weight:600;opacity:0;transition:var(--transition);z-index:3000;pointer-events:none}
@@ -413,10 +444,10 @@ background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
 </div>
 <div class="container">
   <div class="about-stats reveal reveal-delay-2">
-    <div class="stat"><div class="stat-num"><span class="gold-text">55+</span></div><p class="stat-label" data-en="Years in Business" data-ar="سنوات في العمل">Years in Business</p></div>
-    <div class="stat"><div class="stat-num"><span class="gold-text">30+</span></div><p class="stat-label" data-en="Countries Served" data-ar="دولة نخدمها">Countries Served</p></div>
-    <div class="stat"><div class="stat-num"><span class="gold-text">1000+</span></div><p class="stat-label" data-en="Product Designs" data-ar="تصميم منتج">Product Designs</p></div>
-    <div class="stat"><div class="stat-num"><span class="gold-text">3</span></div><p class="stat-label" data-en="Generations" data-ar="أجيال">Generations</p></div>
+    <div class="stat"><div class="stat-num"><span class="gold-text" data-target="55" data-suffix="+">0+</span></div><p class="stat-label" data-en="Years in Business" data-ar="سنوات في العمل">Years in Business</p></div>
+    <div class="stat"><div class="stat-num"><span class="gold-text" data-target="30" data-suffix="+">0+</span></div><p class="stat-label" data-en="Countries Served" data-ar="دولة نخدمها">Countries Served</p></div>
+    <div class="stat"><div class="stat-num"><span class="gold-text" data-target="1000" data-suffix="+">0+</span></div><p class="stat-label" data-en="Product Designs" data-ar="تصميم منتج">Product Designs</p></div>
+    <div class="stat"><div class="stat-num"><span class="gold-text" data-target="3" data-suffix="">0</span></div><p class="stat-label" data-en="Generations" data-ar="أجيال">Generations</p></div>
   </div>
 </div>
 </section>
@@ -447,12 +478,12 @@ background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
       <div class="product-card-info"><h3 data-en="Black &amp; Gold Border Shawl" data-ar="شال أسود بحدود ذهبية">Black &amp; Gold Border Shawl</h3><p data-en="Gents Shawls" data-ar="شالات رجالية">Gents Shawls</p></div>
     </div>
 
-    <div class="product-card reveal reveal-delay-1" data-cat="keffiyehs" onclick="openLightbox(1)">
+    <div class="product-card reveal" data-cat="keffiyehs" onclick="openLightbox(1)">
       <div class="arch-frame"><img src="images/DSC_1581-01.jpeg" alt="Patterned keffiyeh in multiple colours" loading="lazy"></div>
       <div class="product-card-info"><h3 data-en="Patterned Keffiyeh" data-ar="شماغ منقوش">Patterned Keffiyeh</h3><p data-en="Keffiyehs" data-ar="شماغات">Keffiyehs</p></div>
     </div>
 
-    <div class="product-card reveal reveal-delay-2" data-cat="yemeni" onclick="openLightbox(2)">
+    <div class="product-card reveal" data-cat="yemeni" onclick="openLightbox(2)">
       <div class="arch-frame"><img src="images/DSC_1571-01.jpeg" alt="Traditional Yemeni scarf" loading="lazy"></div>
       <div class="product-card-info"><h3 data-en="Traditional Yemeni Style Scarf" data-ar="شيلان">Traditional Yemeni Style Scarf</h3><p data-en="Yemeni Scarves" data-ar="شيلان">Yemeni Scarves</p></div>
     </div>
@@ -462,12 +493,12 @@ background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
       <div class="product-card-info"><h3 data-en="Bordered Ghutra" data-ar="غترة بحدود">Bordered Ghutra</h3><p data-en="Keffiyehs" data-ar="شماغات">Keffiyehs</p></div>
     </div>
 
-    <div class="product-card reveal reveal-delay-1" data-cat="gents-shawls" onclick="openLightbox(4)">
+    <div class="product-card reveal" data-cat="gents-shawls" onclick="openLightbox(4)">
       <div class="arch-frame"><img src="images/DSC_1595-01.jpeg" alt="Green shawl with lustrous finish" loading="lazy"></div>
       <div class="product-card-info"><h3 data-en="Green Shawl" data-ar="شال أخضر">Green Shawl</h3><p data-en="Gents Shawls" data-ar="شالات رجالية">Gents Shawls</p></div>
     </div>
 
-    <div class="product-card reveal reveal-delay-2" data-cat="keffiyehs" onclick="openLightbox(5)">
+    <div class="product-card reveal" data-cat="keffiyehs" onclick="openLightbox(5)">
       <div class="arch-frame"><img src="images/DSC_1602-01.jpeg" alt="Classic black and white keffiyeh" loading="lazy"></div>
       <div class="product-card-info"><h3 data-en="Classic Black &amp; White Keffiyeh" data-ar="شماغ كلاسيكي أبيض وأسود">Classic Black &amp; White Keffiyeh</h3><p data-en="Keffiyehs" data-ar="شماغات">Keffiyehs</p></div>
     </div>
@@ -477,12 +508,12 @@ background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
       <div class="product-card-info"><h3 data-en="Black Rida with Zari Detail" data-ar="رداء أسود بتفاصيل زري">Black Rida with Zari Detail</h3><p data-en="Gents Shawls" data-ar="شالات رجالية">Gents Shawls</p></div>
     </div>
 
-    <div class="product-card reveal reveal-delay-1" data-cat="gents-shawls" onclick="openLightbox(7)">
+    <div class="product-card reveal" data-cat="gents-shawls" onclick="openLightbox(7)">
       <div class="arch-frame"><img src="images/DSC_1607-01.jpeg" alt="Certified rida collection with packaging" loading="lazy"></div>
       <div class="product-card-info"><h3 data-en="Certified Rida Collection" data-ar="مجموعة رداء معتمدة">Certified Rida Collection</h3><p data-en="Gents Shawls" data-ar="شالات رجالية">Gents Shawls</p></div>
     </div>
 
-    <div class="product-card reveal reveal-delay-2" data-cat="prayer-rugs" onclick="openLightbox(8)">
+    <div class="product-card reveal" data-cat="prayer-rugs" onclick="openLightbox(8)">
       <div class="arch-frame"><img src="images/DSC_1612-01.jpeg" alt="Kashmiri floral embroidered prayer rug" loading="lazy"></div>
       <div class="product-card-info"><h3 data-en="Kashmiri Floral Prayer Rug" data-ar="سجادة صلاة كشميرية بالأزهار">Kashmiri Floral Prayer Rug</h3><p data-en="Prayer Rugs" data-ar="سجاد صلاة">Prayer Rugs</p></div>
     </div>
@@ -492,12 +523,12 @@ background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
       <div class="product-card-info"><h3 data-en="Kashmiri Embroidered Collection" data-ar="مجموعة كشميرية مطرزة">Kashmiri Embroidered Collection</h3><p data-en="Prayer Rugs" data-ar="سجاد صلاة">Prayer Rugs</p></div>
     </div>
 
-    <div class="product-card reveal reveal-delay-1" data-cat="sarongs" onclick="openLightbox(10)">
+    <div class="product-card reveal" data-cat="sarongs" onclick="openLightbox(10)">
       <div class="arch-frame"><img src="images/DSC_1852-01.jpeg" alt="Red and white striped sarong" loading="lazy"></div>
       <div class="product-card-info"><h3 data-en="Red &amp; White Striped Sarong" data-ar="معوز مخطط أحمر وأبيض">Red &amp; White Striped Sarong</h3><p data-en="Sarongs" data-ar="معاوز">Sarongs</p></div>
     </div>
 
-    <div class="product-card reveal reveal-delay-2" data-cat="sarongs" onclick="openLightbox(11)">
+    <div class="product-card reveal" data-cat="sarongs" onclick="openLightbox(11)">
       <div class="arch-frame"><img src="images/DSC_1856-01.jpeg" alt="White sarong with red border" loading="lazy"></div>
       <div class="product-card-info"><h3 data-en="White Sarong with Red Border" data-ar="معوز أبيض بحدود حمراء">White Sarong with Red Border</h3><p data-en="Sarongs" data-ar="معاوز">Sarongs</p></div>
     </div>
@@ -507,12 +538,12 @@ background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
       <div class="product-card-info"><h3 data-en="Black Sarong with Woven Border" data-ar="معوز أسود بحدود منسوجة">Black Sarong with Woven Border</h3><p data-en="Sarongs" data-ar="معاوز">Sarongs</p></div>
     </div>
 
-    <div class="product-card reveal reveal-delay-1" data-cat="keffiyehs" onclick="openLightbox(13)">
+    <div class="product-card reveal" data-cat="keffiyehs" onclick="openLightbox(13)">
       <div class="arch-frame"><img src="images/DSC_1868-01.jpeg" alt="Traditional ghutra with brand labels" loading="lazy"></div>
       <div class="product-card-info"><h3 data-en="Traditional Ghutra" data-ar="غتره">Traditional Ghutra</h3><p data-en="Keffiyehs" data-ar="شماغات">Keffiyehs</p></div>
     </div>
 
-    <div class="product-card reveal reveal-delay-2" data-cat="ladies-shawls" onclick="openLightbox(14)">
+    <div class="product-card reveal" data-cat="ladies-shawls" onclick="openLightbox(14)">
       <div class="arch-frame"><img src="images/DSC_1910-01.jpeg" alt="Designer colour collection of ladies shawls" loading="lazy"></div>
       <div class="product-card-info"><h3 data-en="Designer Colour Collection" data-ar="مجموعة ألوان مميزة">Designer Colour Collection</h3><p data-en="Ladies Shawls" data-ar="شالات نسائية">Ladies Shawls</p></div>
     </div>
@@ -522,7 +553,7 @@ background-size:60px 60px;background-position:0 0,0 30px,30px -30px,-30px 0}
       <div class="product-card-info"><h3 data-en="Red &amp; Black Patterned Keffiyeh" data-ar="شماغ منقوش أحمر وأسود">Red &amp; Black Patterned Keffiyeh</h3><p data-en="Keffiyehs" data-ar="شماغات">Keffiyehs</p></div>
     </div>
 
-    <div class="product-card reveal reveal-delay-1" data-cat="ladies-shawls" onclick="openLightbox(16)">
+    <div class="product-card reveal" data-cat="ladies-shawls" onclick="openLightbox(16)">
       <div class="arch-frame"><img src="images/IMG-20180917-WA0086.jpg" alt="Ladies shela collection" loading="lazy"></div>
       <div class="product-card-info"><h3 data-en="Ladies Shela" data-ar="شيلة نسائية">Ladies Shela</h3><p data-en="Ladies Shawls" data-ar="شالات نسائية">Ladies Shawls</p></div>
     </div>
@@ -733,8 +764,17 @@ const allImages = [
 let currentImg = 0;
 
 const nav = document.getElementById('nav');
+const heroContent = document.querySelector('.hero-content');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 50);
+  if (window.scrollY < window.innerHeight) {
+    const y = window.scrollY;
+    heroContent.style.transform = 'translateY(' + (-y * 0.15) + 'px)';
+    heroContent.style.opacity = Math.max(0, 1 - (y / (window.innerHeight * 0.9)));
+  }
+});
+window.addEventListener('load', () => {
+  setTimeout(() => heroContent.classList.add('hero-loaded'), 300);
 });
 
 function openMobile() { document.getElementById('mobileMenu').classList.add('open'); }
@@ -744,8 +784,15 @@ function toggleMobile() { document.getElementById('mobileMenu').classList.toggle
 function filterCat(cat) {
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   event.target.classList.add('active');
+  let idx = 0;
   document.querySelectorAll('.product-card').forEach(card => {
-    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+    const show = cat === 'all' || card.dataset.cat === cat;
+    card.style.display = show ? '' : 'none';
+    card.classList.remove('visible');
+    if (show) {
+      card.style.setProperty('--stagger', idx++);
+      requestAnimationFrame(() => requestAnimationFrame(() => card.classList.add('visible')));
+    }
   });
 }
 
@@ -757,11 +804,17 @@ function openLightbox(idx) {
 }
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow = '';
+  setTimeout(() => { document.body.style.overflow = ''; }, 500);
 }
 function navLightbox(dir) {
-  currentImg = (currentImg + dir + allImages.length) % allImages.length;
-  document.getElementById('lightboxImg').src = allImages[currentImg];
+  const img = document.getElementById('lightboxImg');
+  img.style.opacity = '0';
+  img.style.transform = 'scale(0.95)';
+  setTimeout(() => {
+    currentImg = (currentImg + dir + allImages.length) % allImages.length;
+    img.src = allImages[currentImg];
+    img.onload = () => { img.style.opacity = '1'; img.style.transform = 'scale(1)'; };
+  }, 200);
 }
 document.addEventListener('keydown', e => {
   if (!document.getElementById('lightbox').classList.contains('open')) return;
@@ -779,6 +832,56 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.geo-sep').forEach(el => observer.observe(el));
+
+const gridObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      staggerProducts();
+      gridObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+const productsGrid = document.getElementById('productsGrid');
+if (productsGrid) gridObs.observe(productsGrid);
+
+function staggerProducts() {
+  const cards = productsGrid.querySelectorAll('.product-card');
+  let idx = 0;
+  cards.forEach(card => {
+    if (card.style.display !== 'none') {
+      card.style.setProperty('--stagger', idx++);
+      card.classList.add('visible');
+    }
+  });
+}
+
+function animateCount(el, target, suffix, duration) {
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.ceil(eased * target) + suffix;
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const statsObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('[data-target]').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        const dur = target > 100 ? 2500 : 2000;
+        animateCount(el, target, suffix, dur);
+      });
+      statsObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+const aboutStats = document.querySelector('.about-stats');
+if (aboutStats) statsObs.observe(aboutStats);
 
 let currentLang = localStorage.getItem('ys-lang') || 'en';
 function applyLang() {
