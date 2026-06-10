@@ -1,0 +1,26 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atiqmobile/yasmeensilk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/atiqmobile/yasmeensilk/issues"
+  },
+  "homepage": "https://github.com/atiqmobile/yasmeensilk#readme",
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "motion": "^12.38.0",
+    "sharp": "^0.34.5"
+  }
+}

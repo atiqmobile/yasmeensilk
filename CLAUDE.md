@@ -12,7 +12,7 @@
 - **Availability:** By appointment only
 - **Brand color:** Green (logo), but website uses luxury minimal theme (black + gold #C9A96E)
 - **Logo files:** `images/logo final.jpg` (full Arabic + English), `images/yasmeen logo.jpg` (Arabic only)
-- **Business type:** Manufacturer & wholesaler. We supply WHOLESALERS, not retailers directly.
+- **Business type:** TRADERS, not manufacturers. We are a textile trading house with dedicated factories producing under the Yasmeen brand and our quality standards. We supply WHOLESALERS, not retailers directly. NEVER describe us as "manufacturer" or claim "in-house production / our looms" — say "supplier", "trading house", or "production by factories working under our brand".
 - **Retail:** Handled case-by-case, subject to stock availability. Not the primary business.
 - **Fabrics used:** Wool, acrylic, polyester, viscose
 - **NO custom labelling / NO private label** — we sell under Yasmeen branding only
@@ -114,6 +114,13 @@ India (IN) = Headquarters
 - **NO pashmina** — we do not sell pashmina blends. Remove any reference to pashmina.
 - **We supply WHOLESALERS** — not retailers. Always say "wholesalers and distributors", never "retailers". Exception: retail enquiries are entertained case-by-case.
 - **Fabrics:** Wool, acrylic, polyester, viscose. Always list these when describing materials. Do not say "premium wool" alone — it's wool AND synthetic fabrics.
+- **We are TRADERS, not manufacturers** — never claim manufacturing, in-house production, "our looms", or loom calibration. Production is done by factories working under the Yasmeen brand and standards.
+- **Ghutra = keffiyeh.** For our customers, "ghutra" is simply the Arabic name for the keffiyeh — NOT a plain white headscarf. Never define ghutra as the white scarf.
+- **Keffiyehs come in many colours** — greens, blues, greys, browns, golds, multi-colour — not just black/white and red/white. Never imply the classics are the whole range.
+- **NO per-piece inspection claims.** We have a rigorous BATCH checking process, but quantities make per-piece inspection impossible. Say "batch checking" / "checked before packing", never "every piece is inspected".
+- **Traditional looms:** keffiyehs are woven on older/traditional looms; small piece-to-piece variations are natural. Frame this as authentic craft, never as a defect, and never teach buyers that minor variation = bad supplier.
+- **Timelines:** production is typically 4–8 weeks for smaller runs but can run 3–4 months for large or peak-season (Ramadan/Hajj) orders. Present honestly but positively: "we confirm a realistic window with your quotation" + "order early for seasonal stock". Never promise a flat 4–6 weeks.
+- **Website shows a glimpse only** — the full catalogue runs to hundreds of designs. When referring to the collection, note the site is a small sample and invite WhatsApp contact for the full range.
 
 ## FAQ Content (for FAQ page)
 
